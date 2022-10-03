@@ -1,0 +1,24 @@
+Museum of Modern Art Collection 데이터셋은 미국 뉴욕의 근현대 미술관인 MoMA의 작품과 작가 정보를 담고 있습니다. artists 테이블에는 MoMA에 등록된 작가들의 정보가 있고, artworks_artists 테이블에는 각 작품에 참여한 작가들의 정보가 들어있습니다. 하나의 작품에 여러 명의 작가가 참여할 수 있기 때문에, artworks_artists 테이블의 artwork_id 컬럼과 artist_id 컬럼은 N:M 관계입니다.
+
+MoMA에 등록된 작가이지만 전시된 작품이 없는 작가들의 마지막 작품을 전시하는 기획전을 준비하려 합니다. MoMA에 등록되어있고, 현재 살아있지 않은 작가 중 MoMA에 등록된 작품이 없는 작가의 ID와 이름을 출력하는 쿼리를 작성해주세요. 쿼리 결과에는 아래 컬럼이 있어야 합니다.
+
+artist_id - 작가 ID
+name - 작가 이름
+
+
+--SQL 쿼리
+SELECT A.artist_id , A.name
+FROM artists AS A
+LEFT JOIN artworks_artists AS B
+ON A.artist_id = B.artist_id
+WHERE A.death_year IS NOT NULL AND B.artwork_id is null;
+
+
+* 나의 문제점
+1. INNER JOIN과 LEFT JOIN이 동일한거라고 착각하였다.
+2. LEFT JOIN , RIGHT JOIN은 OUTER JOIN이다.
+3. 문제를 풀다가 왜 artworks테이블은 조인을 안하지? 라는 생각때문에
+계속 그 테이블도 함께 다중조인을 하고있었다.
+하지만 돌아서 생각해보니 artworks_artists 테이블에 작품ID가 없으면 당연히
+artworks 테이블에도 없다는걸 인지하지 못하였다.
+
