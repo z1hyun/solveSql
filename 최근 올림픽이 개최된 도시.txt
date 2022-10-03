@@ -9,5 +9,6 @@ city - 올림픽 개최도시 (3글자)
 
 
 --SQL 쿼리
-SELECT year , SUBSTR(CITY, 0,4) city FROM games
-WHERE YEAR >= 2000;
+SELECT year , UPPER(SUBSTR(CITY, 0,4)) city FROM games
+WHERE YEAR >= 2000
+ORDER BY YEAR DESC;
